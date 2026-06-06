@@ -62,7 +62,7 @@ cd /app &>> $LOGFILE
 npm install &>> $LOGFILE
 VALIDATE $? " install npm packages"
 
-cp -r backend.service /etc/systemd/system/backend.service &>> $LOGFILE
+cp -r /home/ec2-user/Shell_Ansible_3Tire/shell_threetire/Shell_script/backend.service /etc/systemd/system/backend.service &>> $LOGFILE
 VALIDATE $? "copy the service file"
 
 dnf install mysql -y &>> $LOGFILE
