@@ -43,8 +43,14 @@ VALIDATE $? "remove file"
 mkdir /app &>> $LOGFILE
 VALIDATE $? "create directory"
 
-useradd --system --home /app --shell /sbin/nologin --comment "expense system user" expense &>> $LOGFILE
-VALIDATE $? "create systemm user"
+id expense
+if [ $? -ne 0 ]; then
+ echo -e "$TIME_STAMP user exists $Y skpping.. $N"
+ exit 1
+ else
+ useradd --system --home /app --shell /sbin/nologin --comment "expense system user" expense &>> $LOGFILE
+ VALIDATE $? "create systemm user"
+fi
 
 curl -o /tmp/backend.tar.gz https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-backend-v3.tar.gz &>> $LOGFILE
 VALIDATE $? "download file"
