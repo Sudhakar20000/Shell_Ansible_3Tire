@@ -25,13 +25,13 @@ VALIDATE () {
     fi
 }
 
-dnf install mysql-server -y
+dnf install mysql-server -y  &> $LOGFILE
 VALIDATE $? "install mysql"
 
-systemctl enable mysqld
+systemctl enable mysqld  &> $LOGFILE
 systemctl start mysqld
 VALIDATE $? "start and enable mysql"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1
+mysql_secure_installation --set-root-pass ExpenseApp@1 &> $LOGFILE
 
 VALIDATE $? "set root password"
