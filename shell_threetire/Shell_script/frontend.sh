@@ -4,10 +4,10 @@ LOGFILE=$LOGDIR/$0.log
 mkdir -p $LOGDIR
 chown -R ec2-user:ec2-user $LOGDIR
 chmod 755 -R $LOGDIR
-R="e\[31m"
-G="e\[32m"
-Y="e\[33m"
-N="e\[0m"
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 TIME_STAMP=$(date '+%Y-%m-%d-%H-M-%s')
 CURRENT_USER=$(id -u)
 
