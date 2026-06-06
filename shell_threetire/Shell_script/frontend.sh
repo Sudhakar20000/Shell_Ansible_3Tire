@@ -45,7 +45,7 @@ VALIDATE $? "unarchive the file"
 rm -rf /etc/nginx/default.d/expense.conf  &>> $LOGFILE
 VALIDATE $? "remove conf"
 
-cp -r $CURRENT_DIR/expense.conf /etc/nginx/default.d/expense.conf  &>> $LOGFILE
+cp -r $CURRENT_DIR/expence.conf /etc/nginx/default.d/expense.conf  &>> $LOGFILE
 VALIDATE $? "cpoy thr conf file"
 
 systemctl restart nginx  &>> $LOGFILE
