@@ -8,20 +8,20 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-TIME_STAMP=$(date '+%Y-%m-%d %H:M:%S')
+TIME_STAMP=$(date '+%Y-%m-%d %H:%M:%S')
 CURRENT_USER=$(id -u)
 
 if [ $CURRENT_USER -ne 0 ]; then
-    echo "$TIME_STAMP [ERROR] $R swithch to root user $N" | tee -a $LOGFILE
+    echo -e "$TIME_STAMP [ERROR] $R swithch to root user $N" | tee -a $LOGFILE
     exit 1
 fi
 
 VALIDATE () {
     if [ $1 -ne 0 ]; then
-        echo "$TIME_STAMP [ERROR] $R error during $2 .. $N" | tee -a $LOGFILE
+        echo -e "$TIME_STAMP [ERROR] $R error during $2 .. $N" | tee -a $LOGFILE
         exit 1
         else
-        echo "$TIME_STAMP [SUCCESS] $G suceuessfully done $2 .. $N" | tee -a $LOGFILE
+        echo -e "$TIME_STAMP [SUCCESS] $G suceuessfully done $2 .. $N" | tee -a $LOGFILE
     fi
 }
 
