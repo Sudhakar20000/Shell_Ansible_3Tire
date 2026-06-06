@@ -1,13 +1,13 @@
 #!/bin/bash
 LOGDIR=/var/log/roboshop
 LOGFILE=$LOGDIR/$0.log
-mkdir -r $LOGDIR
+mkdir -p $LOGDIR
 chown -R ec2-user:ec2-user $LOGDIR
 chmod 755 -R $LOGDIR
-R='e\[31m'
-G='e\[32m'
-Y='e\[33m'
-N='e\[0m'
+R="e\[31m"
+G="e\[32m"
+Y="e\[33m"
+N="e\[0m"
 TIME_STAMP=$(date '+%Y-%m-%d-%H-M-%s')
 CURRENT_USER=$(id -u)
 
@@ -22,6 +22,7 @@ VALIDATE () {
         exit 1
         else
         echo "$TIME_STAMP [SUCCESS] $G suceuessfully done $2 .. $N" | tee -a $LOGFILE
+    fi
 }
 
 dnf install nginx -y
