@@ -8,7 +8,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-TIME_STAMP=$(date '+%Y-%m-%d-%H-M-%s')
+TIME_STAMP=$(date '+%Y-%m-%d %H:M:%S')
 CURRENT_USER=$(id -u)
 
 if [ $CURRENT_USER -ne 0 ]; then
