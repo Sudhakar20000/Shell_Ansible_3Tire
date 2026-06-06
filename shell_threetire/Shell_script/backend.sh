@@ -1,6 +1,7 @@
 #!/bin/bash
 LOGDIR=/var/log/roboshop
 LOGFILE=$LOGDIR/$0.log
+CURRENT_DIR=$PWD
 mkdir -p $LOGDIR
 chown -R ec2-user:ec2-user $LOGDIR
 chmod 755 -R $LOGDIR
@@ -62,7 +63,8 @@ cd /app &>> $LOGFILE
 npm install &>> $LOGFILE
 VALIDATE $? " install npm packages"
 
-cp -r /home/ec2-user/Shell_Ansible_3Tire/shell_threetire/Shell_script/backend.service /etc/systemd/system/backend.service &>> $LOGFILE
+
+cp -r $CURRENT_DIR/backend.service /etc/systemd/system/backend.service &>> $LOGFILE
 VALIDATE $? "copy the service file"
 
 dnf install mysql -y &>> $LOGFILE
