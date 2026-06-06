@@ -31,39 +31,39 @@ VALIDATE $? "disable default nodejs"
 dnf module enable nodejs:20 -y &>> $LOGFILE
 VALIDATE $? "enable nodejs 20"
 
-dnf install nodejs -y
+dnf install nodejs -y &>> $LOGFILE
 VALIDATE $? "install nodajs 20"
 
-mkdir /app
+mkdir /app &>> $LOGFILE
 VALIDATE $? "create directory"
 
-useradd --system --home /app --shell /sbin/nologin --comment "expense system user" expense
+useradd --system --home /app --shell /sbin/nologin --comment "expense system user" expense &>> $LOGFILE
 VALIDATE $? "create systemm user"
 
-curl -o /tmp/backend.tar.gz https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-backend-v3.tar.gz
+curl -o /tmp/backend.tar.gz https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-backend-v3.tar.gz &>> $LOGFILE
 VALIDATE $? "download file"
 
-cd /app
-tar -xzf /tmp/backend.tar.gz 
+cd /app &>> $LOGFILE
+tar -xzf /tmp/backend.tar.gz &>> $LOGFILE
 VALIDATE $? "unarchive the file"
 
-cd /app
-npm install
+cd /app &>> $LOGFILE
+npm install &>> $LOGFILE
 VALIDATE $? " install npm packages"
 
-cp -r backend.service /etc/systemd/system/backend.service
+cp -r backend.service /etc/systemd/system/backend.service &>> $LOGFILE
 VALIDATE $? "copy the service file"
 
-dnf install mysql -y
+dnf install mysql -y &>> $LOGFILE
 VALIDATE $? "install mysql"
 
-mysql -h mysql.sudhakar.shop -u root -pExpenseApp@1 < /app/schema/backend.sql
+mysql -h mysql.sudhakar.shop -u root -pExpenseApp@1 < /app/schema/backend.sql &>> $LOGFILE
 VALIDATE $? "load the script"
 
-systemctl daemon-reload
+systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "reload daemon"
 
-systemctl enable backend
-systemctl start backend
+systemctl enable backend &>> $LOGFILE
+systemctl start backend &>> $LOGFILE
 VALIDATE $? "enable and start backend"
 
