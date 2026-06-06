@@ -34,6 +34,12 @@ VALIDATE $? "enable nodejs 20"
 dnf install nodejs -y &>> $LOGFILE
 VALIDATE $? "install nodajs 20"
 
+rm -rf /app
+VALIDATE $? "remove app directory"
+
+rm -rf /tmp/backend.tar.gz
+VALIDATE $? "remove file"
+
 mkdir /app &>> $LOGFILE
 VALIDATE $? "create directory"
 
