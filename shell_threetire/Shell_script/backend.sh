@@ -8,7 +8,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-TIME_STAMP=$(date '+%Y-%m-%d-%H-M-%s')
+TIME_STAMP=$(date '+%Y-%m-%d %H:M:%s')
 CURRENT_USER=$(id -u)
 
 if [ $CURRENT_USER -ne 0 ]; then
@@ -25,10 +25,10 @@ VALIDATE () {
     fi
 }
 
-dnf module disable nodejs -y
+dnf module disable nodejs -y &> $LOGFILE
 VALIDATE $? "disable default nodejs"
 
-dnf module enable nodejs:20 -y
+dnf module enable nodejs:20 -y &> $LOGFILE
 VALIDATE $? "enable nodejs 20"
 
 dnf install nodejs -y
