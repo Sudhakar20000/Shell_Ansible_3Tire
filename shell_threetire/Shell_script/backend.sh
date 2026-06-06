@@ -44,7 +44,7 @@ mkdir /app &>> $LOGFILE
 VALIDATE $? "create directory"
 
 id expense
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
  echo -e "$TIME_STAMP user exists $Y skpping.. $N"
  exit 1
  else
