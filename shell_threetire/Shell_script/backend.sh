@@ -70,7 +70,7 @@ VALIDATE $? "copy the service file"
 dnf install mysql -y &>> $LOGFILE
 VALIDATE $? "install mysql"
 
-mysql -h localhost -u root -pExpenseApp@1 < /app/schema/backend.sql &>> $LOGFILE
+mysql -h db.sudhakar.shop -u root -pExpenseApp@1 < /app/schema/backend.sql &>> $LOGFILE
 VALIDATE $? "load the script"
 
 systemctl daemon-reload &>> $LOGFILE
