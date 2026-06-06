@@ -25,27 +25,27 @@ VALIDATE () {
     fi
 }
 
-dnf install nginx -y
+dnf install nginx -y  &>> $LOGFILE
 
 VALIDATE $? "install nginx"
 
-rm -rf /usr/share/nginx/html/*
+rm -rf /usr/share/nginx/html/*   &>> $LOGFILE
 VALIDATE $? "remove the default application"
 
 rm -rf /tmp/frontend.tar.gz
 
-curl -o /tmp/frontend.tar.gz https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v3.tar.gz
+curl -o /tmp/frontend.tar.gz https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-frontend-v3.tar.gz   &>> $LOGFILE
 VALIDATE $? "download the file"
 
 cd /usr/share/nginx/html
-tar -xzf /tmp/frontend.tar.gz 
+tar -xzf /tmp/frontend.tar.gz  &>> $LOGFILE
 VALIDATE $? "unarchive the file"
 
-rm -rf /etc/nginx/default.d/expense.conf
+rm -rf /etc/nginx/default.d/expense.conf  &>> $LOGFILE
 VALIDATE $? "remove conf"
 
-cp -r expense.conf /etc/nginx/default.d/expense.conf
+cp -r expense.conf /etc/nginx/default.d/expense.conf  &>> $LOGFILE
 VALIDATE $? "cpoy thr conf file"
 
-systemctl restart nginx
+systemctl restart nginx  &>> $LOGFILE
 VALIDATE $? "reatart the nginx"
