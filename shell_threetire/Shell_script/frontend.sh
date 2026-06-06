@@ -4,6 +4,7 @@ LOGFILE=$LOGDIR/$0.log
 mkdir -p $LOGDIR
 chown -R ec2-user:ec2-user $LOGDIR
 chmod 755 -R $LOGDIR
+CURRENT_DIR=$PWD
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -44,7 +45,7 @@ VALIDATE $? "unarchive the file"
 rm -rf /etc/nginx/default.d/expense.conf  &>> $LOGFILE
 VALIDATE $? "remove conf"
 
-cp -r expense.conf /etc/nginx/default.d/expense.conf  &>> $LOGFILE
+cp -r $CURRENT_DIR/expense.conf /etc/nginx/default.d/expense.conf  &>> $LOGFILE
 VALIDATE $? "cpoy thr conf file"
 
 systemctl restart nginx  &>> $LOGFILE
