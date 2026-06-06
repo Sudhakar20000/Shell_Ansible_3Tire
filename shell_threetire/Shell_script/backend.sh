@@ -43,10 +43,9 @@ VALIDATE $? "remove file"
 mkdir /app &>> $LOGFILE
 VALIDATE $? "create directory"
 
-id expense
+id expense  &>> $LOGFILE
 if [ $? -eq 0 ]; then
  echo -e "$TIME_STAMP user exists $Y skpping.. $N"
- exit 1
  else
  useradd --system --home /app --shell /sbin/nologin --comment "expense system user" expense &>> $LOGFILE
  VALIDATE $? "create systemm user"
