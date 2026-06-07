@@ -3,13 +3,13 @@
   become: yes
   tasks:
   - name: remove mysql if already installed
-  package:
-    name: mysql-server
-    state: absent
-- name: remove mysql data directory
-  file:
-    path: /var/lib/mysql
-    state: absent
+    package:
+      name: mysql-server
+      state: absent
+  - name: remove mysql data directory
+    file:
+      path: /var/lib/mysql
+      state: absent
   - name: install mysql
     package:
       name: mysql-server
