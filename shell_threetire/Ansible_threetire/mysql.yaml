@@ -13,6 +13,10 @@
       enabled: yes
   - name: setup root password
     command: mysql_secure_installation --set-root-pass RoboShop@1
+  - name: install python dependencies
+    pip:
+      name: PyMySQL
+      executable: pip3.9
   - name: grant remote access to root
     community.mysql.mysql_user:
       name: root
