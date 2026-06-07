@@ -51,10 +51,10 @@
     package:
       name: mysql
       state: present
-  - name: Install PyMySQL
-    package:
-      name: python3-PyMySQL
-      state: present
+  - name: install python dependencies
+    pip:
+      name: PyMySQL
+      executable: pip3.9
   - name: load db 
     community.mysql.mysql_db:
       name: all
