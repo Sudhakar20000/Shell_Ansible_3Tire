@@ -3,13 +3,9 @@
   become: true
   tasks:
   - name: disable default nodejs
-    dnf:
-      name: nodejs
-      state: disable
+    command: dnf module disable nodejs -y
   - name: enable nodejs:20
-    dnf:
-      name: nodejs:20
-      state: enable
+    command: dnf module enable nodejs:20 -y
   - name: install nodejs
     package:
       name: nodejs
@@ -26,14 +22,23 @@
     file:
       path: /app
       state: directory
+  - name: Create expense system user
+    user:
+      name: expense
+      system: true
+      home: /app
+      shell: /sbin/nologin
+      comment: expense system user
+      state: present
   - name: download file
     get_url:
       url: https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-backend-v3.tar.gz
-      deat: /tmp/backend.tar.gz
+      dest: /tmp/backend.tar.gz
   - name: unarchive
     unarchive:
       src: /tmp/backend.tar.gz
       dest: /app
+      remote_src: yes
   - name: install npm packages
     community.general.npm:
       path: /app
@@ -46,6 +51,10 @@
     package:
       name: mysql
       state: present
+  - name: Install PyMySQL
+    package:
+      name: python3-PyMySQL
+      state: present
   - name: load db 
     community.mysql.mysql_db:
       login_host: db.sudhakar.shop
@@ -55,10 +64,8 @@
       target: /app/schema/backend.sql
   - name: deamon reload
     systemd_service:
-      name: backend
-      state: restarted
       daemon_reload: true
-  - name: staet and enable
+  - name: start and enable
     service:
       name: backend
       state: started
