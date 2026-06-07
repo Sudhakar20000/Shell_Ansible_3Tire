@@ -1,0 +1,13 @@
+- name: install mysql-db
+  hosts:  db
+  become: yes
+  tasks:
+  - name: install mysql
+    package:
+      name: mysql-server
+      state: present
+  - name: start and enable mysql
+    service:
+      name: mysqld
+      state: started
+      enabled: yes

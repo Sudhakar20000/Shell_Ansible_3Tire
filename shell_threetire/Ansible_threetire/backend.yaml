@@ -1,0 +1,66 @@
+- name: configure backend
+  hosts: backend
+  become: true
+  tasks:
+  - name: disable default nodejs
+    dnf:
+      name: nodejs
+      state: disable
+  - name: enable nodejs:20
+    dnf:
+      name: nodejs:20
+      state: enable
+  - name: install nodejs
+    package:
+      name: nodejs
+      state: present
+  - name: remove directory
+    file:
+      path: /app
+      state: absent
+  - name: remove file
+    file:
+      path: /tmp/backend.tar.gz
+      state: absent
+  -name: create directory
+    file:
+      path: /app
+      state: directory
+  - name: download file
+    get_url:
+      url: https://raw.githubusercontent.com/daws-90s/expense-documentation/refs/heads/main/artifacts/expense-backend-v3.tar.gz
+      deat: /tmp/backend.tar.gz
+  - name: unarchive
+    unarchive:
+      src: /tmp/backend.tar.gz
+      dest: /app
+  - name: install npm packages
+    community.general.npm:
+      path: /app
+      state: present
+  - name: copy service file
+    copy:
+      src: backend.service
+      dest: /etc/systemd/system/backend.service
+  - name: install mysql
+    package:
+      name: mysql
+      state: present
+  - name: load db 
+    community.mysql.mysql_db:
+      login_host: db.sudhakar.shop
+      login_user: root
+      login_password: "ExpenseApp@1"
+      state: import
+      target: /app/schema/backend.sql
+  - name: deamon reload
+    systemd_service:
+      name: backend
+      state: restarted
+      daemon_reload: true
+  - name: staet and enable
+    service:
+      name: backend
+      state: started
+      enabled: true
+      
