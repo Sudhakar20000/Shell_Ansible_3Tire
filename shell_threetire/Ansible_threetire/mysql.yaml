@@ -23,8 +23,10 @@
     command: mysql_secure_installation --set-root-pass ExpenseApp@1
   - name: grant remote access to root
     command: >
-      mysql -u root -pExpenseApp@1 -e
-      "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'ExpenseApp@1' WITH GRANT OPTION; FLUSH PRIVILEGES;"
-      
+      mysql -u root -e
+      "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'ExpenseApp@1';
+      GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'ExpenseApp@1' WITH GRANT OPTION;
+      FLUSH PRIVILEGES;" FLUSH PRIVILEGES;"
+
   
   
