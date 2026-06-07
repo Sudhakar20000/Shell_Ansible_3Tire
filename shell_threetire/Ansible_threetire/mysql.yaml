@@ -21,11 +21,11 @@
       enabled: yes
   - name: setup root password
     command: mysql_secure_installation --set-root-pass ExpenseApp@1
-  - name: grant remote access to root
+  - name: grant remote access to root via socket
     shell: |
-      mysql -u root -pExpenseApp@1 -e "
-      ALTER USER 'root'@'localhost' IDENTIFIED BY 'ExpenseApp@1';
-      CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'ExpenseApp@1';
+      mysql -u root -e "
+      ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'ExpenseApp@1';
+      CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'ExpenseApp@1';
       GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
       FLUSH PRIVILEGES;
       "
