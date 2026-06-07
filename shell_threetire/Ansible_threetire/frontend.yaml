@@ -18,7 +18,7 @@
     unarchive:
       src: /tmp/frontend.tar.gz
       dest: /usr/share/nginx/html
-      remort_src: true
+      remote_src: true
   - name: copy the conf file
     copy:
       src: expense.conf
