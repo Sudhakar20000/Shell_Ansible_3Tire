@@ -22,7 +22,7 @@
     file:
       path: /tmp/backend.tar.gz
       state: absent
-  -name: create directory
+  - name: create directory
     file:
       path: /app
       state: directory
@@ -63,4 +63,4 @@
       name: backend
       state: started
       enabled: true
-      
+
