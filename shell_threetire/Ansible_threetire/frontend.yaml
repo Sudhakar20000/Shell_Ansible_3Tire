@@ -18,6 +18,7 @@
     unarchive:
       src: /tmp/frontend.tar.gz
       dest: /usr/share/nginx/html
+      remort_src: true
   - name: copy the conf file
     copy:
       src: expense.conf
@@ -27,6 +28,6 @@
       name: nginx
       state: started
       enabled: true
-      
+
 
 
