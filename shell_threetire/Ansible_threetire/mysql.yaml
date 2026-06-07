@@ -2,6 +2,14 @@
   hosts:  db
   become: yes
   tasks:
+  - name: remove mysql if already installed
+  package:
+    name: mysql-server
+    state: absent
+- name: remove mysql data directory
+  file:
+    path: /var/lib/mysql
+    state: absent
   - name: install mysql
     package:
       name: mysql-server
@@ -9,20 +17,8 @@
   - name: start and enable mysql
     service:
       name: mysqld
-      state: started
+      state: restarted
       enabled: yes
   - name: setup root password
     command: mysql_secure_installation --set-root-pass RoboShop@1
-  - name: install python dependencies
-    pip:
-      name: PyMySQL
-      executable: pip3.9
-  - name: grant remote access to root
-    community.mysql.mysql_user:
-      name: root
-      host: "%"
-      password: "ExpenseApp@1"
-      priv: "*.*:ALL,GRANT"
-      login_user: root
-      login_password: "ExpenseApp@1"
-      state: present
+  
